@@ -27,4 +27,5 @@ namespace Core.Users.Implementation.Services
 
         public User Get(Expression<Func<User, bool>> func) => _beawreContext.User.FirstOrDefault(func);
     }
+
 }
