@@ -17,6 +17,8 @@ namespace Core.Users
             // Services
             services.AddScoped<IUserService, UserService>();
 
+            services.AddScoped<INotificationService, NotificationService>();
+
             // Queries
         }
     }
