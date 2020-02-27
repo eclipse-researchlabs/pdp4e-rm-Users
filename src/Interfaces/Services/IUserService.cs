@@ -12,5 +12,6 @@ namespace Core.Users.Interfaces.Services
     {
         Task<Guid> Create(CreateUserCommand command);
         User Get(Expression<Func<User, bool>> func);
+        bool UpdateNotificationsSettings(UpdateNotificationsSettingsCommand command);
     }
 }

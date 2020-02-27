@@ -26,6 +26,8 @@ namespace Core.Users.Implementation.Services
         public async Task<Guid> Create(CreateUserCommand command) => await _mediator.Send(command);
 
         public User Get(Expression<Func<User, bool>> func) => _beawreContext.User.FirstOrDefault(func);
+
+        public bool UpdateNotificationsSettings(UpdateNotificationsSettingsCommand command) => _mediator.Send(command).Result; 
     }
 
 }
