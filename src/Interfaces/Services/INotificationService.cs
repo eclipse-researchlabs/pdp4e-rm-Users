@@ -8,5 +8,6 @@ namespace Core.Users.Interfaces.Services
     public interface INotificationService
     {
         bool Create(CreateNotificationCommand command);
+        bool CreateForUsers(CreateNotificationCommand command);
     }
 }
