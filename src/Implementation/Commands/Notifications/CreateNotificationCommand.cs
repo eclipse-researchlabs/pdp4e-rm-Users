@@ -11,5 +11,6 @@ namespace Core.Users.Implementation.Commands.Notifications
     {
         public Guid[] UserId { get; set; }
         public NotificationPayloadModel Payload { get; set; }
+
     }
 }

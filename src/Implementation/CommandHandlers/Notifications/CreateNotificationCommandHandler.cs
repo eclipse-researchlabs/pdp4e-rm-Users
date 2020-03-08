@@ -8,6 +8,7 @@ using Core.Database;
 using Core.Database.Enums;
 using Core.Database.Tables;
 using Core.Users.Implementation.Commands.Notifications;
+using Core.Users.Implementation.Helpers;
 using MediatR;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -17,10 +18,12 @@ namespace Core.Users.Implementation.CommandHandlers.Notifications
     public class CreateNotificationCommandHandler : IRequestHandler<CreateNotificationCommand, bool>
     {
         private IBeawreContext _beawreContext;
+        private IEmailHelper _emailHelper;
 
-        public CreateNotificationCommandHandler(IBeawreContext beawreContext)
+        public CreateNotificationCommandHandler(IBeawreContext beawreContext, IEmailHelper emailHelper)
         {
             _beawreContext = beawreContext;
+            _emailHelper = emailHelper;
         }
 
         public Task<bool> Handle(CreateNotificationCommand request, CancellationToken cancellationToken)
@@ -40,8 +43,8 @@ namespace Core.Users.Implementation.CommandHandlers.Notifications
                         _beawreContext.Relationship.Add(new Relationship() { FromType = ObjectType.User, ToType = ObjectType.Notification,  FromId = user.Id, ToId = Guid.Empty, Payload = JsonConvert.SerializeObject(request.Payload) });
                     }
 
-                    if (sendEmail) {
-
+                    if (sendEmail && !string.IsNullOrEmpty(request.Payload.Title) && !string.IsNullOrEmpty(request.Payload.Content)) {
+                        _emailHelper.Send(user.Email, user.Username, request.Payload.Title, request.Payload.Content);
                     }
                 }
             }

@@ -20,10 +20,10 @@ namespace Core.Users.Implementation.Helpers
             message.To.Add(new MailboxAddress(toName, toEmail));
             message.Subject = subject;
 
-            message.Body = new TextPart("plain")
-            {
-                Text = body
-            };
+            var bodyBuilder = new BodyBuilder();
+            bodyBuilder.HtmlBody = subject;
+
+            message.Body = bodyBuilder.ToMessageBody();
 
             using (var client = new SmtpClient())
             {
