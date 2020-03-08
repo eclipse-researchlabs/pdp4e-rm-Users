@@ -21,7 +21,8 @@ namespace Core.Users.Implementation.Helpers
             message.Subject = subject;
 
             var bodyBuilder = new BodyBuilder();
-            bodyBuilder.HtmlBody = subject;
+            var newBody = "<img src='https://vfr.beawre.com/Beawre_logo.png' style='width: 140px; height: 40px;' /><br/><br/>" + body;
+            bodyBuilder.HtmlBody = newBody;
 
             message.Body = bodyBuilder.ToMessageBody();
 
