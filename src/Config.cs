@@ -4,6 +4,7 @@ using System.Text;
 using AutoMapper;
 using Core.Database.Tables;
 using Core.Users.Implementation.Commands;
+using Core.Users.Implementation.Helpers;
 using Core.Users.Implementation.Services;
 using Core.Users.Interfaces.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,6 +21,8 @@ namespace Core.Users
             services.AddScoped<INotificationService, NotificationService>();
 
             // Queries
+
+            services.AddScoped<IEmailHelper, EmailHelper>();
         }
     }
 
