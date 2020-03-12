@@ -35,7 +35,8 @@ namespace Core.Users.Implementation.CommandHandlers.Notifications
                 if (payload.ContainsKey("notificationsSettings"))
                 {
                     var settings = payload.SelectToken("notificationsSettings")
-                        .SelectToken(request.Payload.StringValue1).ToObject<JObject[]>().FirstOrDefault(x => x.SelectToken("key").Value<string>() == request.Payload.Type).Values<JProperty>().ToList();
+                        .SelectToken(request.Payload.StringValue1).ToObject<JObject[]>().FirstOrDefault(x => x.SelectToken("key")?.Value<string>() == request.Payload.Type)?.Values<JProperty>().ToList();
+                    if (settings == null) continue;
                     bool sendEmail = settings.FirstOrDefault(x => x.Name == "email").Value.Value<bool>();
                     bool sendWebApp = settings.FirstOrDefault(x => x.Name == "webapp").Value.Value<bool>();
 
