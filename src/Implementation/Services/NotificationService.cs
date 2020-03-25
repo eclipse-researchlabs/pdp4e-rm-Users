@@ -38,6 +38,8 @@ namespace Core.Users.Implementation.Services
             _beawreContext.SaveChanges();
             return true;
         }
-       
+
+        public bool MarkAsRead(MarkAsReadCommand command) => _mediator.Send(command).Result;
+
     }
 }

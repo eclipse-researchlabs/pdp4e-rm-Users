@@ -26,7 +26,8 @@ namespace Core.Users.Implementation.CommandHandlers
             var user = _beawreContext.User.FirstOrDefault(x => x.Id == request.UserId);
             if(user == null) throw new Exception("User not found!");
 
-            var payload = JObject.Parse(string.IsNullOrEmpty(user.Payload) ? "{}" : user.Payload);
+            var payload = JObject.Parse(user.Payload ?? "{}");
+            throw new Exception($"User found! {user.Id} {user.Username} {payload}");
             if(payload.ContainsKey("notificationsSettings"))
                 payload.SelectToken("notificationsSettings").Replace(JObject.Parse(request.Settings.ToString()));
             else

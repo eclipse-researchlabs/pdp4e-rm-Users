@@ -9,5 +9,6 @@ namespace Core.Users.Interfaces.Services
     {
         bool Create(CreateNotificationCommand command);
         bool CreateForUsers(CreateNotificationCommand command);
+        bool MarkAsRead(MarkAsReadCommand command);
     }
 }
