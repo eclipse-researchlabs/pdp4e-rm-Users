@@ -23,7 +23,6 @@ namespace Core.Users.Implementation.CommandHandlers
 
         public Task<bool> Handle(UpdateNotificationsSettingsCommand request, CancellationToken cancellationToken)
         {
-            throw new Exception($"USER? {request.UserId}");
             var user = _beawreContext.User.FirstOrDefault(x => x.Id == request.UserId);
             if(user == null) throw new Exception("User not found!");
 
