@@ -41,5 +41,16 @@ namespace Core.Users.Implementation.Services
 
         public bool MarkAsRead(MarkAsReadCommand command) => _mediator.Send(command).Result;
 
+        public bool Clear(Guid userId)
+        {
+            var list = _beawreContext.Relationship.Where(x =>
+                x.FromType == ObjectType.User && x.ToType == ObjectType.Notification && x.FromId == userId);
+            foreach (var item in list)
+                item.IsDeleted = true;
+
+            _beawreContext.SaveChanges();
+            return true;
+        }
+
     }
 }
